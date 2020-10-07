@@ -6,7 +6,5 @@ namespace Common
     {
         string Title { get; }
         string Instructions { get; }
-
-        string ImageUrl { get; }
     }
 }

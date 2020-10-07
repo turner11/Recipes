@@ -1,6 +1,6 @@
 ﻿using Common;
+using Components.Recipes;
 using Microsoft.AspNetCore.Components;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,10 @@ namespace Recipes.Pages
     {
         [Inject]
         Services.IRecipesProvider RecipesProvider { get; set; }
-        protected IReadOnlyList<IRecipe> Recipes { get; private set; }
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+        protected IReadOnlyList<RecipeViewModel> Recipes { get; private set; }
 
         protected Components.Recipes.RecipeCollection RecipeCollection { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -20,14 +23,15 @@ namespace Recipes.Pages
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                this.Recipes = await this.RecipesProvider.GetRecipes();
+                var recipes = await this.RecipesProvider.GetRecipes();
+                this.Recipes = recipes.Select(r => new RecipeViewModel(r)).ToList().AsReadOnly();
                 await this.InvokeAsync(this.StateHasChanged);
             }
         }
 
-        protected void HandleRecipeSelected(IRecipe recipe)
+        protected void HandleRecipeSelected(RecipeViewModel recipe)
         {
-
+            this.NavigationManager.NavigateTo("Recipe/"+recipe.Title);
         }
     }
 }

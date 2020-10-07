@@ -32,7 +32,7 @@ namespace Recipes
             var user = GithubSection.GetValue<string>("User");
             var repo = GithubSection.GetValue<string>("Repo");
             var pathInRepo = GithubSection.GetValue<string>("Path");
-            var token = GithubSection.GetValue<string?>("token");
+            var token = GithubSection.GetValue<string>("token");
 
 
 

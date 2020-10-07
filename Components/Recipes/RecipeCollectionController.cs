@@ -10,12 +10,12 @@ namespace Components.Recipes
     public class RecipeCollectionController : ComponentBase
     {
         [Parameter]
-        public IReadOnlyList<IRecipe> Recipes { get; set; }
+        public IReadOnlyList<RecipeViewModel> Recipes { get; set; }
 
         [Parameter]
-        public EventCallback<IRecipe> RecipeSelected { get; set; }
+        public EventCallback<RecipeViewModel> RecipeSelected { get; set; }
 
-        protected async Task RecipeClicked(IRecipe recipe)
+        protected async Task RecipeClicked(RecipeViewModel recipe)
         {
             await this.RecipeSelected.InvokeAsync(recipe);
         }

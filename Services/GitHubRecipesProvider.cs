@@ -71,6 +71,11 @@ namespace Services
             return this._cache;
         }
 
-
+        public async Task<IRecipe> GetRecipe(string name)
+        {
+            var recipes = await this.GetRecipes();
+            var recipe = recipes.FirstOrDefault(r => r.Title.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            return recipe;
+        }
     }
 }
