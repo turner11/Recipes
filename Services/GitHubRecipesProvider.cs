@@ -11,6 +11,7 @@ namespace Services
 {
     public class GitHubRecipesProvider : IRecipesProvider
     {
+        const string RECIPE_FILE_SUFFIX = ".md";
         public string RepoName { get; }
         public string UserName { get; }
         public string PathInRepo { get; }
@@ -28,29 +29,36 @@ namespace Services
         }
 
 
+        public async Task<IReadOnlyList<string>> GetRecipesNames()
+        {
+            IReadOnlyList<RepositoryContent> mdNames = await this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, this.PathInRepo);
+
+            
+            var names = mdNames.Select(item => item.Name)
+                                .Where(item => item.ToLowerInvariant().EndsWith(RECIPE_FILE_SUFFIX)).ToList();
+
+            return names;
+        }
+
+
         public async Task<IReadOnlyList<IRecipe>> GetRecipes()
         {
             if ((this._cache?.Count ?? 0) == 0)
             {
                 try
                 {
+                    var names = await GetRecipesNames();
+                    var tasks = names.Select(mdName => this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, $"{this.PathInRepo}/{mdName}"));
+                    //.Select(mdName => (Name:mdName, Task:this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, $"{this.PathInRepo}/{mdName}")));
 
-                IReadOnlyList<RepositoryContent> mdNames = await this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, this.PathInRepo);
+                    var mdContents = await Task<string>.WhenAll(tasks);
+                    var mdContent = mdContents.Select(cs => cs.FirstOrDefault()?.Content?.Trim() ?? "");
 
-                const string suffix = ".md";
-                var tasks = mdNames.Select(item => item.Name)
-                                    .Where(item => item.ToLowerInvariant().EndsWith(suffix))
-                                    .Select(mdName => this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, $"{this.PathInRepo}/{mdName}"));
-                //.Select(mdName => (Name:mdName, Task:this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, $"{this.PathInRepo}/{mdName}")));
+                    var ret = names.Zip(mdContent, (name, content) => new Recipe(name.Replace(RECIPE_FILE_SUFFIX, ""), content)).Where(r => !String.IsNullOrWhiteSpace(r.Instructions))
+                            .Cast<IRecipe>()
+                            .ToList();
 
-                var mdContents = await Task<string>.WhenAll(tasks);
-                var mdContent = mdContents.Select(cs => cs.FirstOrDefault()?.Content?.Trim() ?? "");
-
-                var ret = mdNames.Zip(mdContent, (name, content) => new Recipe(name.Name.Replace(suffix, ""), content)).Where(r => !String.IsNullOrWhiteSpace(r.Instructions))
-                        .Cast<IRecipe>()
-                        .ToList();
-
-                this._cache = ret.AsReadOnly();
+                    this._cache = ret.AsReadOnly();
                 }
                 catch (Exception ex)
                 {
@@ -62,6 +70,7 @@ namespace Services
 
             return this._cache;
         }
+
 
     }
 }

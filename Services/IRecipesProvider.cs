@@ -9,5 +9,6 @@ namespace Services
     public interface IRecipesProvider
     {
         Task<IReadOnlyList<IRecipe>> GetRecipes();
+        Task<IReadOnlyList<string>> GetRecipesNames();
     }
 }
