@@ -1,0 +1,30 @@
+﻿<div class="splash-grid">
+    <div class="splash-grid-content">
+        <div class="splash-grid-center">
+
+            <div class="loading">
+                <h1 class="temp">@_headr</h1>
+                <h1>@_description</h1>
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Header { get; set; }
+
+    [Parameter]
+    public string Description { get; set; }
+
+    string _headr => Header ?? "";
+    string _description => Description ?? "";
+}

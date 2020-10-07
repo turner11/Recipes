@@ -1,0 +1,7 @@
+
+.vs/*
+**/obj/*
+**/bin/*
+#Recipes/appsettings.json
+#Recipes/appsettings.Development.json
+

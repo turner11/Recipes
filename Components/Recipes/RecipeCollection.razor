@@ -1,0 +1,24 @@
+﻿@inherits RecipeCollectionController
+
+
+<div class="main">
+    <ul class="recipe-card">
+        @if (this.Recipes != null)
+        {
+            @foreach (var recipe in this.Recipes)
+            {
+                <li @onclick="@(async () => await this.RecipeClicked(recipe))" style="background-image: url('@recipe.ImageUrl'); background-size: contain;" class="@recipe.Title.GuessRtlClass()">
+                    <div class="recipe-info">
+                        <span class="title">@recipe.Title</span>                        
+                    </div>
+                </li>
+            }
+        }
+
+
+    </ul>
+    @*@if (recipes == null)
+    {
+        <WaitSplash Header="Just one moment" Description="while I organize the shelves"></WaitSplash>
+    }*@
+</div>
