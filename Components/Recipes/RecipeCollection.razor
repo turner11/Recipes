@@ -7,11 +7,11 @@
         {
             @foreach (var recipe in this.Recipes)
             {
-                <li @onclick="@(async () => await this.RecipeClicked(recipe))" style="background-image: url('@recipe.ImageUrl'); background-size: contain;" class="@recipe.Title.GuessRtlClass()">
-                    <div class="recipe-info">
-                        <span class="title">@recipe.Title</span>                        
-                    </div>
-                </li>
+        <li @onclick="@(async () => await this.RecipeClicked(recipe))" style="background-image: url('@recipe.ImageUrl'); @recipe.Title.GuessDirectionStyle()">
+            <div class="recipe-info">
+                <span class="title">@recipe.Title</span>
+            </div>
+        </li>
             }
         }
 

@@ -16,6 +16,8 @@ namespace Recipes.Pages
 
         [Parameter]
         public string RecipeName { get; set; }
+
+        protected string directionStyle => (this.Recipe?.Instructions ?? "").GetHtmlInnerText().GuessDirectionStyle();
         public RecipeViewModel Recipe { get; private set; }
 
         public MarkupString Instructions => this.Recipe?.InstructionsHtml ?? new MarkupString();

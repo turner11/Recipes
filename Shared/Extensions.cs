@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 
 
 public static class Extensions
 {
-
+    public static string GetHtmlInnerText(this string html)
+    {
+        var doc = new HtmlAgilityPack.HtmlDocument();        
+        doc.LoadHtml(html);
+        
+        var ns = doc.DocumentNode.SelectNodes("/").ToList();
+        var txt = ns.First().InnerText;
+        return txt;
+    }
     public static bool GuessIsRtl(this string str)
     {
-        var cleanChars = str.Trim().Replace(" ", "").Where(c => !char.IsPunctuation(c)).ToArray();
+        if (String.IsNullOrWhiteSpace(str))
+            return false;
+        var cleanChars = str.Trim().Replace(" ", "").Replace("\n", "").Replace("\r", "").Where(c => !char.IsPunctuation(c) && !char.IsDigit(c)).ToArray();
         var avg = cleanChars.Select(c => (int)c).Average();
         var isRtl = 'א' < avg && avg < 'ת';
         return isRtl;
@@ -19,9 +31,9 @@ public static class Extensions
         return str.GuessIsRtl() ? "rtl" : "ltr";
     }
 
-    public static string GuessRtlClass(this string str)
+    public static string GuessDirectionStyle(this string str)
     {
-        return str.GuessIsRtl() ? "rtl_class" : "";
+        return str.GuessIsRtl() ? "direction: rtl; text-align: start;" : "";
 
     }
 

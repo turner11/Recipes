@@ -1,5 +1,8 @@
 ﻿@page "/recipe/{RecipeName}"
 @inherits RecipeController
-<h3>@Recipe.Title</h3>
+<h3 style="@this.directionStyle">@Recipe.Title</h3>
 <br />
-@this.Instructions
+
+<div style="@this.directionStyle">
+    @this.Instructions
+</div>
