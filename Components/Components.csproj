@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -8,6 +8,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Markdown" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.8" />
     <PackageReference Include="morelinq" Version="3.3.2" />
@@ -15,7 +16,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Common.csproj" />
+    <ProjectReference Include="..\RecipesWasm\Shared\RecipesWasm.Shared.csproj" />
   </ItemGroup>
 
 </Project>

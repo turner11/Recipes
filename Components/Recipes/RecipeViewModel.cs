@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using RecipesWasm.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;

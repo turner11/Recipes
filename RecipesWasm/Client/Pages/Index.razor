@@ -1,0 +1,16 @@
+﻿@page "/"
+@page "/recipes"
+@inherits IndexController
+
+@if (this.Recipes != null)
+{
+    <RecipeCollection Recipes="@this.Recipes" @ref="RecipeCollection" RecipeSelected="@HandleRecipeSelected" />
+    <br />
+
+}
+else
+{
+    <WaitSplash Header="Getting Recipes" />
+}
+
+

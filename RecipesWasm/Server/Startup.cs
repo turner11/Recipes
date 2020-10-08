@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
+using RecipesWasm.Client;
 
-namespace Recipes
+namespace RecipesWasm.Server
 {
     public class Startup
     {
@@ -26,20 +24,10 @@ namespace Recipes
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //var isProduction = Configuration.GetValue<bool>("IsProduction");
-            //var GithubSection = Configuration.GetSection("Github");
-            //var user = GithubSection.GetValue<string>("User");
-            //var repo = GithubSection.GetValue<string>("Repo");
-            //var pathInRepo = GithubSection.GetValue<string>("Path");
-            //var token = GithubSection.GetValue<string>("token");
-
-
-
+            services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddServerSideBlazor();
-            RecipesWasm.Client.ServicesExtentions.AddRecipesServices(services);
-            //RecipesWasm.Client.ServicesExtentions.AddRecipesServices(services, user, repo, pathInRepo, token);
-
+            
+            //services.AddRecipesServices(user, repo, pathInRepo, token);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +36,7 @@ namespace Recipes
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseWebAssemblyDebugging();
             }
             else
             {
@@ -57,14 +46,16 @@ namespace Recipes
             }
 
             app.UseHttpsRedirection();
+            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

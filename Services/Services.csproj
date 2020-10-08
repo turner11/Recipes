@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Octokit" Version="0.48.0" />
     <PackageReference Include="Octokit.Reactive" Version="0.47.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Common.csproj" />
+    <ProjectReference Include="..\RecipesWasm\Shared\RecipesWasm.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Octokit;
 using Octokit.Reactive;
-using Common;
+using RecipesWasm.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
