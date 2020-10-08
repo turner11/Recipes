@@ -19,15 +19,15 @@ This is the staple of Korean fine dining, but too expensive in the restaurants. 
   
 Instructions Checklist
 
- - [ ]    **Step 1**
+ -  **Step 1**
     
     In a bowl, stir together the soy sauce, brown sugar, water, garlic, green onions, and sesame oil until the sugar has dissolved.
     
- - [ ]    **Step 2**
+ -  **Step 2**
     
     Place the ribs in a large plastic zipper bag. Pour the marinade over the ribs, squeeze out all the air, and refrigerate the bag for 3 hours to overnight.
     
- - [ ]    **Step 3**
+ -  **Step 3**
     
     Preheat an outdoor grill for medium-high heat, and lightly oil the grate. Remove the ribs from the bag, shake off the excess marinade, and discard the marinade. Grill the ribs on the preheated grill until the meat is still pink but not bloody nearest the bone, 5 to 7 minutes per side.
 
