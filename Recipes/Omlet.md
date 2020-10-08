@@ -1,4 +1,4 @@
-![Omlet](https://cdn.pixabay.com/photo/2018/11/16/13/20/egg-3819386__340.jpg)
+![Omlet](https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/gd4nitpjnycvkxhjymee)
 
 # Easy omelette
 
