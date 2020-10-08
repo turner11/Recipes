@@ -1,2 +1,36 @@
-https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F6297397.jpg&w=596&h=596&c=sc&poi=face&q=85
-https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F355586.jpg&w=596&h=399&c=sc&poi=face&q=85
+<img src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https://images.media-allrecipes.com/userphotos/6297397.jpg&w=596&h=596&c=sc&poi=face&q=85" width="300" />
+
+
+This is the staple of Korean fine dining, but too expensive in the restaurants. It is also simple to make at home, and will leave your guests asking for more. Total time includes marinating time. Traditionally, should be served sliced, rolled in romaine lettuce leaves, along with white rice, lightly browned garlic slices, and gochujang (Korean red pepper paste).
+
+## Ingredients:
+| Amount | Ingredient |
+|--|--|
+| ¾  |cup soy sauce |
+| ¾  |cup brown sugar |
+| ¾  |cup water |
+| 1  | garlic clove, minced|
+| 2  | eaches green onions, chopped|
+| 1  | tablespoon Asian (toasted) sesame oil|
+| 2  | pounds Korean-style short ribs (beef chuck flanken, cut 1/3 to 1/2 inch thick across bones)|
+
+## Instructions:
+
+  
+Instructions Checklist
+
+ - [ ]    **Step 1**
+    
+    In a bowl, stir together the soy sauce, brown sugar, water, garlic, green onions, and sesame oil until the sugar has dissolved.
+    
+ - [ ]    **Step 2**
+    
+    Place the ribs in a large plastic zipper bag. Pour the marinade over the ribs, squeeze out all the air, and refrigerate the bag for 3 hours to overnight.
+    
+ - [ ]    **Step 3**
+    
+    Preheat an outdoor grill for medium-high heat, and lightly oil the grate. Remove the ribs from the bag, shake off the excess marinade, and discard the marinade. Grill the ribs on the preheated grill until the meat is still pink but not bloody nearest the bone, 5 to 7 minutes per side.
+
+
+<img src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F355586.jpg&w=596&h=399&c=sc&poi=face&q=85" width="300" />
+
