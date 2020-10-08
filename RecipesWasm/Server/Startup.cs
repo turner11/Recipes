@@ -26,8 +26,8 @@ namespace RecipesWasm.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            
-            //services.AddRecipesServices(user, repo, pathInRepo, token);
+            //throw new System.NotImplementedException();
+            services.AddRecipesServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

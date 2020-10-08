@@ -13,8 +13,13 @@ namespace RecipesWasm.Client.Pages
         [Inject]
         IRecipesProvider RecipesProvider { get; set; }
 
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+
         [Parameter]
         public string RecipeName { get; set; }
+
+        protected string Title => this.Recipe?.Title;
 
         protected string directionStyle => (this.Recipe?.Instructions ?? "").GetHtmlInnerText().GuessDirectionStyle();
         public RecipeViewModel Recipe { get; private set; }
@@ -41,7 +46,19 @@ namespace RecipesWasm.Client.Pages
             }
         }
 
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (firstRender)
+            {
+                if (this.Recipe == null)
+                {
+                    this.NavigationManager.NavigateTo("/");
+                }
+            }
+        }
 
-       
+
+
     }
 }

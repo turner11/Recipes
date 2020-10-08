@@ -32,7 +32,7 @@ namespace RecipesWasm.Client
 
                 return new GitHubRecipesProvider(userName, repoName, pathInRepo, token);
             }); 
-            return serviceCollection.AddScoped(implementationfactrory);
+            return serviceCollection.AddScoped(serviceProvider=> implementationfactrory(serviceProvider));
         }
     }
 }
