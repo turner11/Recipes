@@ -25,8 +25,7 @@ namespace RecipesWasm.Server
         {
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
-            //throw new System.NotImplementedException();
+            services.AddRazorPages();            
             services.AddRecipesServices();
         }
 

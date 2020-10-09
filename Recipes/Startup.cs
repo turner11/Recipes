@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
+using RecipesWasm.Client;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -25,20 +25,13 @@ namespace Recipes
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //var isProduction = Configuration.GetValue<bool>("IsProduction");
-            //var GithubSection = Configuration.GetSection("Github");
-            //var user = GithubSection.GetValue<string>("User");
-            //var repo = GithubSection.GetValue<string>("Repo");
-            //var pathInRepo = GithubSection.GetValue<string>("Path");
-            //var token = GithubSection.GetValue<string>("token");
-
+            (string userName, string repoName, string pathInRepo, string token, bool isProduction) = Configuration.GetRepoInfo();
 
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            RecipesWasm.Client.ServicesExtentions.AddRecipesServices(services);
-            //RecipesWasm.Client.ServicesExtentions.AddRecipesServices(services, user, repo, pathInRepo, token);
+            services.AddRecipesServices(userName, repoName, pathInRepo, token);
+            
 
         }
 

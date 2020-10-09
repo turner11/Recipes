@@ -1,7 +1,6 @@
-
 .vs/*
 **/obj/*
 **/bin/*
-#Recipes/appsettings.json
-#Recipes/appsettings.Development.json
 
+Recipes/appsettings.*
+RecipesWasm/Client/wwwroot/appsettings.*

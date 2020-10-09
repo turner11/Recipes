@@ -22,10 +22,13 @@ namespace Services
         {
             this.UserName = userName;
             this.RepoName = repoName;
+
             this.PathInRepo = pathInRepo;// $"{this.RepoName}/{pathInRepo}";
-            this._github = new GitHubClient(new ProductHeaderValue(repoName));
-            if (!String.IsNullOrEmpty(token))
-                this._github.Credentials = new Credentials(token);
+
+            this._github = new GitHubClient(new ProductHeaderValue(repoName))
+            {
+                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)
+            };
         }
 
 
@@ -33,7 +36,7 @@ namespace Services
         {
             IReadOnlyList<RepositoryContent> mdNames = await this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, this.PathInRepo);
 
-            
+
             var names = mdNames.Select(item => item.Name)
                                 .Where(item => item.ToLowerInvariant().EndsWith(RECIPE_FILE_SUFFIX)).ToList();
 
