@@ -27,8 +27,11 @@ namespace Services
 
             this._github = new GitHubClient(new ProductHeaderValue(repoName))
             {
-                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)
+                //Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)
+                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token, AuthenticationType.Bearer),
+                
             };
+            
         }
 
 
