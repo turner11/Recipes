@@ -17,9 +17,14 @@ namespace RecipesWasm.Client
 
         static IServiceCollection AddRecipesProvider(this IServiceCollection serviceCollection, string userName, string repoName, string pathInRepo, string token = null)
         {
+            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11;
+
             //Doing it here using a lambda serves us well for allowing to add this service basaed on configuration in WASM.
             var implementationfactrory = new Func<IServiceProvider, IRecipesProvider>((serviceProvider) =>
             {
+                //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11;
+
+
                 if (new[] { userName, repoName, pathInRepo, token }.Any(String.IsNullOrWhiteSpace))
                 {
                     var tpl = serviceProvider.GetRepoInfoFromConfiguration();

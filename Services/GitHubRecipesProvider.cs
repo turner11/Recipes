@@ -23,13 +23,11 @@ namespace Services
             this.UserName = userName;
             this.RepoName = repoName;
 
-            this.PathInRepo = pathInRepo;// $"{this.RepoName}/{pathInRepo}";
-
+            this.PathInRepo = pathInRepo;
+            
             this._github = new GitHubClient(new ProductHeaderValue(repoName))
             {
-                //Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)
-                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token, AuthenticationType.Bearer),
-                
+                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)                
             };
             
         }
