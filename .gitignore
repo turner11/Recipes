@@ -6,3 +6,5 @@ Recipes/appsettings.*
 RecipesWasm/Client/wwwroot/appsettings.*
 
 **/*.user
+
+octokit.net/
