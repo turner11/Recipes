@@ -22,8 +22,11 @@ public static class Extensions
         if (String.IsNullOrWhiteSpace(str))
             return false;
         var cleanChars = str.Trim().Replace(" ", "").Replace("\n", "").Replace("\r", "").Where(c => !char.IsPunctuation(c) && !char.IsDigit(c)).ToArray();
-        var avg = cleanChars.Select(c => (int)c).Average();
-        var isRtl = 'א' < avg && avg < 'ת';
+        var sortedInts = cleanChars.Select(c => (int)c).OrderBy(c => c).ToArray();
+
+        var median = sortedInts[(int)(sortedInts.Length / 2)];
+        //var avg = cleanChars.Select(c => (int)c).Average();
+        var isRtl = 'א' <= median && median <= 'ת';
         return isRtl;
     }
     public static string GuessDirection(this string str)
