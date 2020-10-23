@@ -7,18 +7,18 @@
         {
             @foreach (var recipe in this.Recipes)
             {
-        <li @onclick="@(async () => await this.RecipeClicked(recipe))" style="background-image: url('@recipe.ImageUrl'); @recipe.Title.GuessDirectionStyle()">
-            <div class="recipe-info">
-                <span class="title">@recipe.Title</span>
-            </div>
-        </li>
+                <li @onclick="@(async () => await this.RecipeClicked(recipe))" style="background-image: url('@recipe.ImageUrl'); @recipe.Title.GuessDirectionStyle()">
+                    <div class="recipe-info">
+                        <span class="title">@recipe.Title</span>
+                    </div>
+                </li>
             }
         }
 
 
     </ul>
     @*@if (this.Recipes == null)
-    {
-        <WaitSplash Header="Just one moment" Description="while I organize the shelves"></WaitSplash>
-    }*@
+        {
+            <WaitSplash Header="Just one moment" Description="while I organize the shelves"></WaitSplash>
+        }*@
 </div>
