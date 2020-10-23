@@ -1,14 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-rc.2.20475.5" />
     <PackageReference Include="morelinq" Version="3.3.2" />
-    <PackageReference Include="Octokit" Version="0.48.0" />
-    <PackageReference Include="Octokit.Reactive" Version="0.47.0" />
+    <PackageReference Include="Octokit" Version="0.49.0-beta0023" />
+    <PackageReference Include="Octokit.Reactive" Version="0.49.0-beta0023" />
   </ItemGroup>
 
   <ItemGroup>
