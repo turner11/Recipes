@@ -11,10 +11,12 @@ namespace Services
 {
     public class GitHubRecipesProvider : IRecipesProvider
     {
-        const string RECIPE_FILE_SUFFIX = ".md";
+        const string RECIPES_LABEL = "recipe";
         public string RepoName { get; }
         public string UserName { get; }
         public string PathInRepo { get; }
+
+        IReadOnlyList<Issue> _issues;
 
         private GitHubClient _github;
         IReadOnlyList<IRecipe> _cache = null;
@@ -24,26 +26,53 @@ namespace Services
             this.RepoName = repoName;
 
             this.PathInRepo = pathInRepo;
-            
+
             this._github = new GitHubClient(new ProductHeaderValue(repoName))
             {
                 Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)                
             };
             
+            
         }
 
+        async Task<IReadOnlyList<Issue>> GetRecipesIssues()
+        {
+            if (this._issues is not null)            
+                return this._issues;
+            
+            var request = new RepositoryIssueRequest
+            {
+                //Assignee = "none",
+                //Milestone = "none",
+                Filter = IssueFilter.All,
+                //State = ItemStateFilter.Closed
+            };
+            request.Labels.Add(RECIPES_LABEL);
+
+
+            IReadOnlyList<Issue> issues = await this._github.Issue.GetAllForRepository(this.UserName, this.RepoName, request);
+            this._issues = issues;
+            return issues;
+        }
 
         public async Task<IReadOnlyList<string>> GetRecipesNames()
         {
-            IReadOnlyList<RepositoryContent> mdNames = await this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, this.PathInRepo);
-
-
-            var names = mdNames.Select(item => item.Name)
-                                .Where(item => item.ToLowerInvariant().EndsWith(RECIPE_FILE_SUFFIX)).ToList();
-
+            var recipes = await this.GetRecipes().ConfigureAwait(false);
+            var names = recipes.Select(recipe=> recipe.Title).ToList().AsReadOnly();
             return names;
         }
 
+
+        private IReadOnlyList<RecipesWasm.Shared.Label> GetLabels(Issue issue)
+        {
+            var splitter = ": ";
+            var labels = issue.Labels.Select(lbl => lbl.Name)
+                               .Where(title => title.Contains(splitter))
+                               .Select(title=> title.Split(splitter, 2, StringSplitOptions.RemoveEmptyEntries))
+                               .Select(fregmants => new RecipesWasm.Shared.Label(fregmants[0], fregmants[^1]))
+                               .ToList().AsReadOnly();
+            return labels;
+        }
 
         public async Task<IReadOnlyList<IRecipe>> GetRecipes()
         {
@@ -51,14 +80,8 @@ namespace Services
             {
                 try
                 {
-                    var names = await GetRecipesNames();
-                    var tasks = names.Select(mdName => this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, $"{this.PathInRepo}/{mdName}"));
-                    //.Select(mdName => (Name:mdName, Task:this._github.Repository.Content.GetAllContents(this.UserName, this.RepoName, $"{this.PathInRepo}/{mdName}")));
-
-                    var mdContents = await Task<string>.WhenAll(tasks);
-                    var mdContent = mdContents.Select(cs => cs.FirstOrDefault()?.Content?.Trim() ?? "");
-
-                    var ret = names.Zip(mdContent, (name, content) => new Recipe(name.Replace(RECIPE_FILE_SUFFIX, ""), content)).Where(r => !String.IsNullOrWhiteSpace(r.Instructions))
+                    var issues = await this.GetRecipesIssues().ConfigureAwait(false);
+                    var ret = issues.Select(issue => new Recipe(issue.Title, issue.Body, GetLabels(issue))).Where(r => !String.IsNullOrWhiteSpace(r.Instructions))
                             .Cast<IRecipe>()
                             .ToList();
 
