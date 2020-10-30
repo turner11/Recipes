@@ -2,6 +2,15 @@
 @page "/recipe/{RecipeName}"
 @inherits RecipeController
 
-<div style="@this.directionStyle">
+<div style="@this.directionStyle" class="recipe_container">
     @this.Instructions
 </div>
+
+
+<style>
+
+    .recipe_container * {
+        max-width: 90%;        
+    }
+
+</style>
