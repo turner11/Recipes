@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>54b2bf55-1106-4b54-876f-ecbd63bb6625</UserSecretsId>
   </PropertyGroup>
 
@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del  .\wwwroot\* /q /s &#xD;&#xA;xcopy ..\RecipesWasm\Client\wwwroot .\wwwroot /E /H /C /I &#xD;&#xA;xcopy ..\RecipesWasm\Client\_Imports.razor .\ /y" />
+    <Exec Command="del  .\wwwroot\* /q /s &#xD;&#xA;del .\appsettings*.json /E /H /C /I &#xD;&#xA;xcopy ..\RecipesWasm\Client\wwwroot .\wwwroot /E /H /C /I &#xD;&#xA;xcopy ..\RecipesWasm\Client\_Imports.razor .\ /y&#xD;&#xA;xcopy ..\RecipesWasm\Client\wwwroot\appsettings*.json .\ /E /H /C /I " />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="del  .\wwwroot\*  /q /s &#xD;&#xA;del .\_Imports.razor" />
+    <Exec Command="del .\_Imports.razor&#xD;&#xA;del  .\wwwroot\* /q /s &#xD;&#xA;" />
   </Target>
   
   

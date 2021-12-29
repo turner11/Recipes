@@ -25,12 +25,12 @@ namespace Recipes
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            (string userName, string repoName, string pathInRepo, string token, bool isProduction) = Configuration.GetRepoInfo();
+            (string userName, string repoName, string token, bool isProduction) = Configuration.GetRepoInfo();
 
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddRecipesServices(userName, repoName, pathInRepo, token);
+            services.AddRecipesServices(userName, repoName, token);
             
 
         }

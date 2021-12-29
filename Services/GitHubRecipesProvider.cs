@@ -14,22 +14,22 @@ namespace Services
         const string RECIPES_LABEL = "recipe";
         public string RepoName { get; }
         public string UserName { get; }
-        public string PathInRepo { get; }
+        
 
         IReadOnlyList<Issue> _issues;
 
         private GitHubClient _github;
         IReadOnlyList<IRecipe> _cache = null;
-        public GitHubRecipesProvider(string userName, string repoName, string pathInRepo, string token = null)
+        public GitHubRecipesProvider(string userName, string repoName, string token)
         {
             this.UserName = userName;
             this.RepoName = repoName;
-
-            this.PathInRepo = pathInRepo;
+            if (String.IsNullOrEmpty(token))
+                throw new ArgumentNullException(nameof(token), "Cannot use a null / empthy token");
 
             this._github = new GitHubClient(new ProductHeaderValue(repoName))
             {
-                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)                
+                Credentials = new Credentials(token)                
             };
             
             
