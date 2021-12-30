@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del  .\wwwroot\* /q /s &#xD;&#xA;del .\appsettings*.json /E /H /C /I &#xD;&#xA;xcopy ..\RecipesWasm\Client\wwwroot .\wwwroot /E /H /C /I &#xD;&#xA;xcopy ..\RecipesWasm\Client\_Imports.razor .\ /y&#xD;&#xA;xcopy ..\RecipesWasm\Client\wwwroot\appsettings*.json .\ /E /H /C /I " />
+    <Exec Command="&#xD;&#xA;&#xD;&#xA;rm -rf .\wwwroot\ &#xD;&#xA;rm -f .\wwwroot\appsettings*.json&#xD;&#xA;&#xD;&#xA;xcopy ..\RecipesWasm\Client\wwwroot .\wwwroot /E /H /C /I /y /q&#xD;&#xA;xcopy .\wwwroot\_Imports.razor .\ /y&#xD;&#xA;&#xD;&#xA;xcopy .\wwwroot\appsettings*.json .\ /H /C /I /y /q&#xD;&#xA;&#xD;&#xA;" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="del .\_Imports.razor&#xD;&#xA;del  .\wwwroot\* /q /s &#xD;&#xA;" />
+    <Exec Command="rm -rf .\wwwroot\*.*&#xD;&#xA;&#xD;&#xA;" />
   </Target>
   
   
