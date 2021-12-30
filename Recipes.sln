@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30524.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipes", "Recipes\Recipes.csproj", "{DD995732-6474-4B3A-B6F8-9A054C510092}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes", "Recipes\Recipes.csproj", "{DD995732-6474-4B3A-B6F8-9A054C510092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesWasm.Server", "RecipesWasm\Server\RecipesWasm.Server.csproj", "{B759DC09-DAFF-4A62-AB07-CC5B63FF45C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesWasm.Server", "RecipesWasm\Server\RecipesWasm.Server.csproj", "{B759DC09-DAFF-4A62-AB07-CC5B63FF45C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesWasm.Client", "RecipesWasm\Client\RecipesWasm.Client.csproj", "{4D8E2E54-92B5-4278-A294-F4B71DD74974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesWasm.Client", "RecipesWasm\Client\RecipesWasm.Client.csproj", "{4D8E2E54-92B5-4278-A294-F4B71DD74974}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesWasm.Shared", "RecipesWasm\Shared\RecipesWasm.Shared.csproj", "{2B2AFCF0-8E98-4F05-966A-7F16FC11DE69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesWasm.Shared", "RecipesWasm\Shared\RecipesWasm.Shared.csproj", "{2B2AFCF0-8E98-4F05-966A-7F16FC11DE69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "Components\Components.csproj", "{EDFD68C8-22D9-4704-81F4-369D68A759D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components", "Components\Components.csproj", "{EDFD68C8-22D9-4704-81F4-369D68A759D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{29FBEDD0-02B7-4562-8EA8-0EC267D0EA5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{29FBEDD0-02B7-4562-8EA8-0EC267D0EA5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
