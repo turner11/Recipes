@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 
 namespace RecipesWasm.Shared
 {
@@ -6,5 +6,6 @@ namespace RecipesWasm.Shared
     {
         string Title { get; }
         string Instructions { get; }
+        ReadOnlyCollection<Label> Labels { get; }
     }
 }

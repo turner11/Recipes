@@ -1,7 +1,6 @@
 ﻿@page "/"
 @page "/recipes"
-@inherits IndexController
-
+<ToolBar></ToolBar>
 @if (this.Recipes != null)
 {
     <RecipeCollection Recipes="@this.Recipes" @ref="RecipeCollection" RecipeSelected="@HandleRecipeSelected" />
