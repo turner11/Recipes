@@ -1,4 +1,5 @@
 ﻿using Components.Recipes;
+using MatBlazor;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace RecipesWasm.Client.Pages
         Services.IRecipesProvider RecipesProvider { get; set; }
 
         [Inject]
+        IMatToaster Toaster { get; set; }
+
+        [Inject]
         NavigationManager NavigationManager { get; set; }
         protected IReadOnlyList<RecipeViewModel> Recipes { get; private set; }
 
@@ -22,8 +26,19 @@ namespace RecipesWasm.Client.Pages
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                var recipes = await this.RecipesProvider.GetRecipes();
-                this.Recipes = recipes.Select(r => new RecipeViewModel(r)).ToList().AsReadOnly();
+                this.Toaster.Add("Getting recipes", MatToastType.Info); ;
+                try
+                {
+                    var recipes = await this.RecipesProvider.GetRecipes();
+                    this.Recipes = recipes.Select(r => new RecipeViewModel(r)).ToList().AsReadOnly();
+                    this.Toaster.Clear();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                    this.Toaster.Add(ex.Message, MatToastType.Danger, title: "Error getting Recipes"); ;
+                }
+               
                 await this.InvokeAsync(this.StateHasChanged);
             }
         }
