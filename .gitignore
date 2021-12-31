@@ -3,8 +3,12 @@
 **/bin/*
 
 Recipes/appsettings.*
+Recipes/appsettings*.json
 RecipesWasm/Client/wwwroot/appsettings.*
 
 **/*.user
 
 octokit.net/
+Recipes/wwwroot/**
+**/temp/**
+Recipes/_Imports.razor

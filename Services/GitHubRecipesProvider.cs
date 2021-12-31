@@ -14,32 +14,32 @@ namespace Services
         const string RECIPES_LABEL = "recipe";
         public string RepoName { get; }
         public string UserName { get; }
-        public string PathInRepo { get; }
+
 
         IReadOnlyList<Issue> _issues;
 
         private GitHubClient _github;
         IReadOnlyList<IRecipe> _cache = null;
-        public GitHubRecipesProvider(string userName, string repoName, string pathInRepo, string token = null)
+        public GitHubRecipesProvider(string userName, string repoName, string token)
         {
             this.UserName = userName;
             this.RepoName = repoName;
-
-            this.PathInRepo = pathInRepo;
+            if (String.IsNullOrEmpty(token))
+                throw new ArgumentNullException(nameof(token), "Cannot use a null / empthy token");
 
             this._github = new GitHubClient(new ProductHeaderValue(repoName))
             {
-                Credentials = String.IsNullOrEmpty(token) ? null : new Credentials(token)                
+                Credentials = new Credentials(token)
             };
-            
-            
+
+
         }
 
         async Task<IReadOnlyList<Issue>> GetRecipesIssues()
         {
-            if (this._issues is not null)            
+            if (this._issues is not null)
                 return this._issues;
-            
+
             var request = new RepositoryIssueRequest
             {
                 //Assignee = "none",
@@ -47,9 +47,7 @@ namespace Services
                 Filter = IssueFilter.All,
                 //State = ItemStateFilter.Closed
             };
-            request.Labels.Add(RECIPES_LABEL);
-
-
+            request.Labels.Add(RECIPES_LABEL);            
             IReadOnlyList<Issue> issues = await this._github.Issue.GetAllForRepository(this.UserName, this.RepoName, request);
             this._issues = issues;
             return issues;
@@ -58,7 +56,7 @@ namespace Services
         public async Task<IReadOnlyList<string>> GetRecipesNames()
         {
             var recipes = await this.GetRecipes().ConfigureAwait(false);
-            var names = recipes.Select(recipe=> recipe.Title).ToList().AsReadOnly();
+            var names = recipes.Select(recipe => recipe.Title).ToList().AsReadOnly();
             return names;
         }
 
@@ -68,7 +66,7 @@ namespace Services
             var splitter = ": ";
             var labels = issue.Labels.Select(lbl => lbl.Name)
                                .Where(title => title.Contains(splitter))
-                               .Select(title=> title.Split(splitter, 2, StringSplitOptions.RemoveEmptyEntries))
+                               .Select(title => title.Split(splitter, 2, StringSplitOptions.RemoveEmptyEntries))
                                .Select(fregmants => new RecipesWasm.Shared.Label(fregmants[0], fregmants[^1]))
                                .ToList().AsReadOnly();
             return labels;
@@ -78,21 +76,13 @@ namespace Services
         {
             if ((this._cache?.Count ?? 0) == 0)
             {
-                try
-                {
-                    var issues = await this.GetRecipesIssues().ConfigureAwait(false);
-                    var ret = issues.Select(issue => new Recipe(issue.Title, issue.Body, GetLabels(issue))).Where(r => !String.IsNullOrWhiteSpace(r.Instructions))
-                            .Cast<IRecipe>()
-                            .ToList();
 
-                    this._cache = ret.AsReadOnly();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                var issues = await this.GetRecipesIssues().ConfigureAwait(false);
+                var ret = issues.Select(issue => new Recipe(issue.Title, issue.Body, GetLabels(issue))).Where(r => !String.IsNullOrWhiteSpace(r.Instructions))
+                        .Cast<IRecipe>()
+                        .ToList();
 
-
-                }
+                this._cache = ret.AsReadOnly();
             }
 
             return this._cache;

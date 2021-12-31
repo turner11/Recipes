@@ -7,13 +7,11 @@ namespace RecipesWasm.Shared
 {
     public class Recipe : IRecipe
     {
-        
-
         public string Title { get; }
         public string Instructions { get; }
         public ReadOnlyCollection<Label> Labels { get; }
 
-        public Recipe(string title, string instructions, IEnumerable<Label> labels=null)
+        public Recipe(string title, string instructions, IEnumerable<Label> labels = null)
         {
             this.Title = title;
             this.Instructions = instructions;

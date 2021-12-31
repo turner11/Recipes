@@ -1,0 +1,18 @@
+﻿<div style="height:42px; display:contents">    
+    @if (@AllFilters is not null)
+    {
+        foreach ((var title, var values) in AllFilters)
+        {
+
+            <MatSelect Label="@title" TValue="String" Style="padding-right: 50px;" ValueChanged=@(value => SetFiltered(title, value))>
+                <MatOptionString></MatOptionString>
+                @foreach (var value in values)
+                {
+                    <MatOptionString Value="@value">@value</MatOptionString>
+                }
+            </MatSelect>           
+        }
+    }
+    
+</div>
+<br/>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Components.Recipes
 {
@@ -12,6 +13,7 @@ namespace Components.Recipes
     {
         const string defaultImageUrl = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pure-white-1554141426.jpg?crop=1xw:1xh;center,top&resize=480:*";
         public IRecipe Recipe { get; }
+        public ReadOnlyCollection<Label> Labels => this.Recipe.Labels.ToList().AsReadOnly();
 
         public string Title => this.Recipe.Title;
 

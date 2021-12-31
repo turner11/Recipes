@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RecipesWasm.Client.Pages
 {
-    public class RecipeController : ComponentBase
+    public partial class Recipe
     {
         [Inject]
         IRecipesProvider RecipesProvider { get; set; }
@@ -19,27 +19,27 @@ namespace RecipesWasm.Client.Pages
         [Parameter]
         public string RecipeName { get; set; }
 
-        protected string Title => this.Recipe?.Title;
+        protected string Title => this.RecipeVM?.Title;
 
-        protected string directionStyle => (this.Recipe?.Instructions ?? "").GetHtmlInnerText().GuessDirectionStyle();
-        public RecipeViewModel Recipe { get; private set; }
+        protected string directionStyle => (this.RecipeVM?.Instructions ?? "").GetHtmlInnerText().GuessDirectionStyle();
+        public RecipeViewModel RecipeVM { get; private set; }
 
-        public MarkupString Instructions => this.Recipe?.InstructionsHtml ?? new MarkupString();
+        public MarkupString Instructions => this.RecipeVM?.InstructionsHtml ?? new MarkupString();
 
         protected override async Task OnParametersSetAsync()
         {
             await base.OnParametersSetAsync();
             if (String.IsNullOrWhiteSpace(RecipeName))
             {
-                this.Recipe = null;
+                this.RecipeVM = null;
                 return;
             }
-            var currTitle = this.Recipe?.Title ?? "";
+            var currTitle = this.RecipeVM?.Title ?? "";
             var getRecipe = !currTitle.Equals(this.RecipeName ?? "", StringComparison.InvariantCultureIgnoreCase);
             if (getRecipe)
             {
                 var recipe = await this.RecipesProvider.GetRecipe(RecipeName);
-                this.Recipe = new RecipeViewModel(recipe);
+                this.RecipeVM = new RecipeViewModel(recipe);
                 
                 await this.InvokeAsync(StateHasChanged);
 
@@ -51,7 +51,7 @@ namespace RecipesWasm.Client.Pages
             base.OnAfterRender(firstRender);
             if (firstRender)
             {
-                if (this.Recipe == null)
+                if (this.RecipeVM == null)
                 {
                     this.NavigationManager.NavigateTo("/");
                 }

@@ -1,21 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-rc.2.20475.17" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Client\RecipesWasm.Client.csproj" />
-    <ProjectReference Include="..\Shared\RecipesWasm.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Client\RecipesWasm.Client.csproj" />
+		<ProjectReference Include="..\Shared\RecipesWasm.Shared.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Controllers\" />
+	</ItemGroup>
+	
+	<!--Supported only in self contained publish-->
+	<!--<PropertyGroup>
+		<PublishTrimmed>true</PublishTrimmed>
+	</PropertyGroup>-->
+	
+	<!--The size of an AOT-compiled Blazor WebAssembly app is generally larger than the size of the app if compiled into .NET IL.
+	most AOT-compiled apps are about twice the size of their IL-compiled versions. 
+	This means that using AOT compilation trades off load time performance for runtime performance.-->
+	<!--<PropertyGroup>
+		<RunAOTCompilation>true</RunAOTCompilation>
+	</PropertyGroup>-->
 
 
 </Project>
