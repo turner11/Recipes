@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 
 namespace RecipesWasm.Shared
@@ -18,28 +19,23 @@ namespace RecipesWasm.Shared
             this.Labels = (labels ?? new Label[0]).ToList().AsReadOnly();
         }
 
-        public override string ToString()
-        {
-            return this.Title;
-        }
-
+        public override string ToString() => this.Title;
     }
 
 
-    public class Label
+    public record class Label(string Category, string Value)
     {
-        public string Category { get; }
-        public string Title { get; }
-        public Label(string category, string title)
-        {
-            Category = category;
-            Title = title;
-        }
 
         public override string ToString()
         {
-            return $"Label(category=\"{Category}\", title=\"{Title})\"";
+            return $"Label(category=\"{Category}\", value=\"{Value})\"";
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Category.ToLower(CultureInfo.InvariantCulture).GetHashCode(), this.Value.ToLower(CultureInfo.InvariantCulture).GetHashCode());
+        }
+
 
     }
 }

@@ -72,5 +72,7 @@ namespace Components.Recipes
             return html;
         }
 
+        public override string ToString()=> this.Title;
+
     }
 }

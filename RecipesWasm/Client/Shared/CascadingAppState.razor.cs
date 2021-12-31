@@ -26,7 +26,7 @@ namespace RecipesWasm.Client.Shared
       
 
         public ReadOnlyDictionary<string, ReadOnlyCollection<string>> LabelCategories { get; private set; }
-        Dictionary<string, string> Filters { get; set; } = new Dictionary<string, string>();
+        List<Label> Filters { get;} = new List<Label>();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -45,7 +45,7 @@ namespace RecipesWasm.Client.Shared
                     var filters = this.Recipes.SelectMany(r => r.Labels)
                                                 .GroupBy(lbl => lbl.Category)
                                                 .ToDictionary(group => group.Key, 
-                                                                group => group.Select(v => v.Title).Distinct().ToList().AsReadOnly());
+                                                                group => group.Select(v => v.Value).Distinct().ToList().AsReadOnly());
 
                     this.LabelCategories = new ReadOnlyDictionary<string, ReadOnlyCollection<string>>(filters);
                 }
@@ -59,17 +59,19 @@ namespace RecipesWasm.Client.Shared
             }
         }
 
-        internal void SetFilters(IDictionary<string, string> filters)
+        internal void SetFilters(IList<Label> filters)
         {
-            this.Filters = new Dictionary<string, string>(filters);
+            this.Filters.Clear();
+            this.Filters.AddRange(filters);
+
             this.StateHasChanged();
         }
 
-        private ReadOnlyCollection<RecipeViewModel> GetFilteredRecipes(Dictionary<string, string> filters)
+        private ReadOnlyCollection<RecipeViewModel> GetFilteredRecipes(IList<Label> filters)
         {
             ReadOnlyCollection<RecipeViewModel> recipes = this.AllRecipes;
-            var _filters = filters?.Where(p => !String.IsNullOrWhiteSpace(p.Value) && !String.IsNullOrWhiteSpace(p.Key))
-                                  ?.ToDictionary(p=> p.Key, p=>p.Value);
+            var _filters = filters?.Where(lbl => !String.IsNullOrWhiteSpace(lbl.Value) && !String.IsNullOrWhiteSpace(lbl.Category))?.ToList();
+                                  
             if (_filters is null || recipes is null || _filters.Count == 0)
                 return recipes ?? new List<RecipeViewModel>().AsReadOnly();
 
@@ -77,10 +79,10 @@ namespace RecipesWasm.Client.Shared
             {
                 
                 bool isMatch = true;
-                foreach ((var category, var value) in _filters)
+                foreach (Label filterLbl in _filters)
                 {
-                    IEnumerable<Label> relevantLabels = r.Labels.Where(lbl=> lbl.Category.Equals(category, StringComparison.InvariantCultureIgnoreCase));
-                    isMatch &= relevantLabels.Any(lbl => lbl.Title.Equals(value, StringComparison.InvariantCultureIgnoreCase));
+                    var relevantLabels = r.Labels.Where(lbl=> lbl.Category.Equals(filterLbl.Category, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                    isMatch &= relevantLabels.Any(lbl => lbl.Value.Equals(filterLbl.Value, StringComparison.InvariantCultureIgnoreCase));
                 }
 
                 
