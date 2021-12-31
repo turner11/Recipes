@@ -49,6 +49,7 @@ namespace Services
             };
             request.Labels.Add(RECIPES_LABEL);            
             IReadOnlyList<Issue> issues = await this._github.Issue.GetAllForRepository(this.UserName, this.RepoName, request);
+            issues = issues.OrderByDescending(issue => issue.Reactions.TotalCount).ThenByDescending(issue => issue.UpdatedAt).ToList().AsReadOnly();
             this._issues = issues;
             return issues;
         }
