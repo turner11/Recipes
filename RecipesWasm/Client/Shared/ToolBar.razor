@@ -4,11 +4,11 @@
         foreach ((var title, var values) in AllFilters)
         {
 
-            <MatSelect Label="@title" TValue="String" Style="padding-right: 50px;" ValueChanged=@(value => SetFiltered(title, value))>
-                <MatOptionString></MatOptionString>
+            <MatSelect Label="@title.ToCamelcase()" TValue="String" Style="padding-right: 50px;" ValueChanged=@(value => SetFiltered(title, value))>                
+                <MatOptionString Value="">--All--</MatOptionString>
                 @foreach (var value in values)
                 {
-                    <MatOptionString Value="@value">@value</MatOptionString>
+                    <MatOptionString Value="@value">@value.ToCamelcase()</MatOptionString>
                 }
             </MatSelect>           
         }

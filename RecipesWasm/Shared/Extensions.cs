@@ -52,4 +52,22 @@ public static class Extensions
             }
         }
     }
+
+    public static string ToCamelcase(this string str)
+    {
+        StringBuilder sb = new StringBuilder();
+        var chaunks = str.Split();
+        foreach (var word in chaunks)
+        {
+            string cword;
+            if (word.Length < 2)
+                cword = word;
+            else
+                cword = Char.ToUpperInvariant(word[0]) + word.Substring(1);
+
+            sb.Append(cword + " ");
+
+        }
+        return sb.ToString().Trim();        
+    }
 }
