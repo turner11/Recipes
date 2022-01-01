@@ -14,7 +14,6 @@ This is a site that optimized for low costs and easy backend handling.
  
  Take a look at [the site!](https://recipessite.z20.web.core.windows.net/)
  
- ---
+ --- 
  
- 
-![site example image](site_image.png)
+![site example image](https://user-images.githubusercontent.com/3768524/147854479-54e4353a-0fe1-4e19-b943-60ce5119c947.png)
