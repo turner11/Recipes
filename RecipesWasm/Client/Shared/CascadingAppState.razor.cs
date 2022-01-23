@@ -33,7 +33,7 @@ namespace RecipesWasm.Client.Shared
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                var toast = this.Toaster.Add("Getting recipes", MatToastType.Info); ;
+                var toast = this.Toaster.Add("Getting recipes", MatToastType.Primary);
                 try
                 {
                     IReadOnlyList<IRecipe> recipes = await this.RecipesProvider.GetRecipes();
